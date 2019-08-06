@@ -1,0 +1,12 @@
+{% with messages = get_flashed_messages()%} {% if messages %}
+<div class="ui segment">
+  {% for message in messages %}{{ message }} {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="ui segment">
+  <h3>Are You Sure You Want To Delete {{ item.name }}?</h3>
+  <button class="ui button" onclick="deleteItem('{{ item.name }}')">
+    Delete
+  </button>
+</div>

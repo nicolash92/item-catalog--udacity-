@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="{{ client_id }}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
+
+    <title>Catalog</title>
+  </head>
+  <body>
+    <div class="ui secondary pointing menu">
+      <a href="{{ url_for('index') }}" class="active item">
+        Catalog
+      </a>
+      <a onclick="getRequestHandler('{{ url_for('addItem') }}')" class="item">
+        Add New Item
+      </a>
+      <div class="right menu">
+        <a class="ui item">
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </a>
+        <a class="ui item" href="/" onclick="signOut();">Sign out</a>
+      </div>
+    </div>
+
+    <div id="response">
+      {% with messages = get_flashed_messages()%} {% if messages %}
+      <div class="ui segment">
+        {% for message in messages %}{{ message }} {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+      <div class="ui two column doubling stackable grid container">
+        <div class="four wide column">
+          <div class="ui segment">
+            <h3>Categories</h3>
+            <div class="h-line"></div>
+            <div class="ui middle aligned divided list">
+              {% for cat in categories%}
+              <div class="item">
+                <div class="right floated content">
+                  <a
+                    href="{{ url_for('showCategory', items_category = cat.name) }}"
+                    ><div class="mini ui green button">
+                      View
+                    </div></a
+                  >
+                </div>
+                <div class="content">
+                  {{ cat.name }}
+                </div>
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+
+        <div class="twelve wide column">
+          <div class="ui segment">
+            <h3>{{ items_category }}</h3>
+            <div class="h-line"></div>
+            {% if not items%}
+            <h5>
+              Sorry Wo dont Have Any <span>{{ items_category }} </span> Items
+            </h5>
+            {%endif%} {% if items%}
+            <div class="ui middle aligned divided list">
+              {% for item in items%} {% for cat in categories %} {% if
+              item.category_id == cat.name %}
+              <div class="item">
+                <div class="content">
+                  <a
+                    class="Header"
+                    onclick="getRequestHandler('{{ url_for('showItem', items_category = cat.name, item_name = item.name) }}')"
+                    >{{ item.name }}</a
+                  >
+                  ({{ cat.name }})
+                </div>
+              </div>
+              {% endif %} {% endfor %} {%endfor%}
+            </div>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

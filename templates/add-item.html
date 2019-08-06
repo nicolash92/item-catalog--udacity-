@@ -1,0 +1,53 @@
+{% with messages = get_flashed_messages()%} {% if messages %}
+<div class="ui segment">
+  {% for message in messages %}{{ message }} {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="ui segment">
+  <h3>Add A New Item</h3>
+  <div class="h-line"></div>
+  <form
+    id="addItemForm"
+    class="ui form"
+    onsubmit="submitForm(event, 'POST', '{{
+      url_for('addItem')
+    }}', 'addItemForm'); return false"
+  >
+    <div class="required field">
+      <label>Item Name</label>
+      <input type="text" name="name" placeholder="ItemName" required />
+    </div>
+    <div class="field">
+      <label>Item Price</label>
+      <input type="text" name="price" placeholder="$ 10.99" />
+    </div>
+
+    <div class="field">
+      <label>Item Picture</label>
+      <input type="url" name="picture" placeholder="Image URL" />
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea
+        rows="2"
+        name="description"
+        placeholder="Enter a short description"
+      ></textarea>
+    </div>
+
+    <div class="field">
+      <label>Category</label>
+      <select class="ui search dropdown" name="category">
+        {% for cat in categories%}
+        <option value="{{ cat.name }}">{{ cat.name }}</option>
+
+        {%endfor%}
+      </select>
+    </div>
+    <div class="field">
+      <button class="ui button">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,17 @@
+<div class="ui segment">
+  
+
+  <h1>USERS</h1>
+  {% if users %} {% for user in users %}
+  <ul>
+    <li>{{ user }}</li>
+    {{
+      user.email
+    }}
+    <br />
+    {{
+      user.picture
+    }}
+  </ul>
+  {% endfor %} {% endif %}
+</div>

@@ -1,0 +1,70 @@
+{% with messages = get_flashed_messages()%} {% if messages %}
+<div class="ui segment">
+  {% for message in messages %}{{ message }} {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="ui segment">
+  <h3>Edit {{ item.name }}</h3>
+  <div class="h-line"></div>
+  <form
+    id="editItemForm"
+    class="ui form"
+    onsubmit="submitForm(event, 'PUT', '{{
+      url_for('editItem', item_name= item.name)
+    }}', 'editItemForm'); return false"
+  >
+    <div class="required field">
+      <label>Item Name</label>
+      <input
+        type="text"
+        name="name"
+        placeholder="ItemName"
+        value="{{ item.name }}"
+        required
+      />
+    </div>
+    <div class="field">
+      <label>Item Price</label>
+      <input
+        type="text"
+        name="price"
+        placeholder="$ 10.99"
+        value="{{ item.price }}"
+      />
+    </div>
+
+    <div class="field">
+      <label>Item Picture</label>
+      <input
+        type="url"
+        name="picture"
+        placeholder="Image URL"
+        value="{{ item.picture }}"
+      />
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea
+        rows="2"
+        name="description"
+        placeholder="Enter a short description"
+        >{{ item.description }}</textarea
+      >
+    </div>
+
+    <div class="field">
+      <label>Category</label>
+      <select class="ui search dropdown" name="category">
+        {% for cat in categories%}
+        <option value="{{ cat.name }}" {% if item.category_id == cat.name %} selected {% endif %}>{{ cat.name }}</option>
+
+        {%endfor%}
+      </select>
+    </div>
+    <div class="field">
+      <button class="ui button">Submit</button>
+    </div>
+  </form>
+</div>

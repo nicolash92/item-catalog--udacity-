@@ -1,0 +1,13 @@
+.h-line {
+  margin: 0.8rem auto;
+  width: 50%;
+  border: 1px #ffd2a6 solid;
+}
+
+.hidden {
+  display: none;
+}
+
+#signout {
+  display: hidden;
+}

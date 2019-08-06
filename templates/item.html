@@ -1,0 +1,25 @@
+{% with messages = get_flashed_messages()%} {% if messages %}
+<div class="ui segment">
+  {% for message in messages %}{{ message }} {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="ui segment">
+  <h2>{{ item.name }}</h2>
+  <p>Description: {{ item.description }}</p>
+  <p>Price: {{ item.price }}</p>
+  {% if item.picture %}
+  <img class="ui large image" src="{{ item.picture }}" alt="{{ item.name }}" />
+  {% endif %} {% if user and user == item.owner %}
+  <p>
+    <a
+      onclick="getRequestHandler('{{ url_for('editItem', item_name = item.name) }}')"
+      >Edit</a
+    >
+    |<a
+      onclick="getRequestHandler('{{ url_for('deleteItem', item_name = item.name) }}')"
+      >Delete</a
+    >
+  </p>
+  {% endif %}
+</div>

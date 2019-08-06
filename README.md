@@ -48,7 +48,7 @@ on mac and linux based systems:
 `> python3 application.py`
 in your browser go to: `http://localhost:5000`
 
-###admin tool
+#### admin tool
 
 the database file is already in the repo, but if it gets deleted you can run `python3 setup.py` and go to your browser and go to the following addresses `http://localhost:5000`
 
@@ -56,3 +56,8 @@ the database file is already in the repo, but if it gets deleted you can run `py
 - `/deler` to delete all users
 - `/list-users` to get a list of all registered users
 - `/addDefItem` generate an item. (RUN ONLY ONCE) (must have an account registered for this to work)
+
+
+### api endpoints
+`http://localhost:5000/catalog` retrieves the whole catalog
+`http://localhost:5000/catalog/<ItemName>` retrieves the Item in question or sens back {'error': 'MESSAGE'} if the item doesn't exist

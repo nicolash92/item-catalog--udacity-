@@ -22,7 +22,7 @@ from flask_httpauth import HTTPTokenAuth
 
 from models import User, Item, Category, Base
 
-engine = create_engine('sqlite:///catalog.db',
+engine = create_engine('postgresql://catalog:password@localhost/catalog',
                        connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
@@ -36,6 +36,25 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 CLIENT_SECRET = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_secret']
+
+# setup categories
+newCat = Category(name='Soccer')
+session.add(newCat)
+newCat = Category(name='Basketball')
+session.add(newCat)
+newCat = Category(name='Baseball')
+session.add(newCat)
+newCat = Category(name='Snowboarding')
+session.add(newCat)
+newCat = Category(name='Rock Climbing')
+session.add(newCat)
+newCat = Category(name='Foosball')
+session.add(newCat)
+newCat = Category(name='Skating')
+session.add(newCat)
+newCat = Category(name='Hockey')
+session.add(newCat)
+session.commit()
 
 
 @auth.verify_token

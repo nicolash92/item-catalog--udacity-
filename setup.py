@@ -18,8 +18,7 @@ from sqlalchemy.orm import sessionmaker
 import json
 
 from models import User, Item, Category, Base
-
-engine = create_engine('sqlite:///catalog.db',
+engine = create_engine('postgresql://catalog:password@localhost/catalog',
                        connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
